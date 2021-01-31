@@ -13,7 +13,6 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -49,6 +48,7 @@ public class PostsApiControllerTest {
 
         //when
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
+
         //then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
