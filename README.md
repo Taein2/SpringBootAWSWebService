@@ -26,3 +26,19 @@ CommonOAuth2Provider라는 enum이 새롭게 추가되어 구글,깃허브,페�
 
 
 
+클라이언트 ID와 클라이언트 보안 비밀을 application.properties에 등록
+spring.security.oauth2.client.registration.google.client-id=클라이언트ID
+spring.security.oauth2.client.registration.google.client-secret=클라이언트보안비밀
+spring.security.oauth2.client.registration.google.scope=profile,email
+- 많은 예제에서 scope를 별도로 등록하고 있지 않음
+- 기본값이 openid, profile, email임
+- 강제로 profile, email을 등록한 이유는 openid라는 scope가 있으면 Open Id Provider로 인식
+- OpenId Provider인 서비스(구글)와 그렇지 않은 서비스(네이버/카카오 등)로 나눠서 각각 OAuth2Service를 만들어야 함
+- 하나의 OAuth2Service로 사용하기 위해 일부로 openid scope를 빼고 등록
+profile = xxx 라는 호출방식을 사용하면 해당 properties의 설정들을 가져올 수 있음
+이 책에서는 application.properties에서 application-oauth.properties를 포함하도록 구성
+spring.profiles.include=oauth
+
+
+클라이언트ID와 보안 비밀의 보안을 위해 .gitignore에 등록
+application-oauth.properties
