@@ -57,3 +57,32 @@ domain 아래 user 패키지 생성<br>
 - 사용자 정보를 담당할 도메인 User class
 - 사용자의 권한을 담당할 Enum 클래스 Role(스프링 시큐리티에서는 권한 코드에 항상 ROLE_이 앞에 있어야 함, EX)ROLE_GUEST, ROLE_USER)
 - User의 CRUD를 담당할 interface UserRepository 
+
+### 스프링 시큐리티 설정
+build.gradle에 스프링 시큐리티 관련 의존성 추가
+compile('org.springframework.boot:spring-boot-starter-oauth2-client') 소셜 기능 구현 시 필요한 의존성
+
+### OAuth 라이브러리를 이용한 소셜 로그인 설정 코드 작성 (config.auth 패키지)
+- SecurityConfig 클래스 생성
+- CustomOAuth2UserService 클래스 생성 (구글 로그인 이후 가져온 사용자의 정보(email,name,picture 등)를 기반으로 가입 및 정보수정, 세션 저장 등의 기능 지원, 유저 정보 업데이트시 User 엔티티에 반영) 
+
+### config.auth 에 dto 패키지를 만듬
+- OAuthAttributes 클래스 생성 
+- SessionUser 클래스 생성 (인증된 사용자 정보 name, email, picture만 선언)
+
+### User 클래스를 사용하면 안되는 이유
+User클래스 사용 시 직렬화 구현하지 않았다는 에러가 뜸<br>
+이유는 User클래스가 엔티티이기 때문, 엔티티는 언제 다른 엔티티와 관계가 형성될지 모름<br>
+따라서 성능 이슈, 부수 효과가 발생할 확률이 높기에 직렬화 기능을 가진 Dto를 하나 추가하여 운영 및 유지 보수에 도움을 줌<br>
+
+### 로그인 테스트
+index.mustache에 로그인 버튼과 로그인 성공 시 사용자 이름을 보여주는 html 코드 추가<br>
+index.mustache에서 userName을 사용할 수 있게 IndexController에서 userName을 model에 저장하는 코드 추가
+
+사용자 권한 GUEST 에서는 posts기능 사용 불가<br>
+h2-console에서 사용자의 role을 USER로 변경하는 쿼리 작성<br>
+update user set role = 'USER';<br>
+
+
+
+
