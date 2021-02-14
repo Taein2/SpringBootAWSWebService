@@ -42,3 +42,10 @@ spring.profiles.include=oauth
 
 클라이언트ID와 보안 비밀의 보안을 위해 .gitignore에 등록
 application-oauth.properties
+
+추가했는데도 커밋 목록에 나올 시
+.gitignore가 제대로 작동되지 않아서 ignore처리된 파일이 자꾸 changes에 나올때가 있다.
+git의 캐시가 문제가 되는거라 아래 명령어로 캐시 내용을 전부 삭제후 다시 add All해서 커밋하면 된다.
+git rm -r --cached .
+git add .
+git commit -m "fixed untracked files"
