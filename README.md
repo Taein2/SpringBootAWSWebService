@@ -49,3 +49,4 @@ git의 캐시가 문제가 되는거라 아래 명령어로 캐시 내용을 전
 git rm -r --cached .
 git add .
 git commit -m "fixed untracked files"
+
