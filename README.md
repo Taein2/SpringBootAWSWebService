@@ -2,20 +2,20 @@
 ## [ 스프링 부트와 AWS로 혼자 구현하는 웹 서비스 ]
 
 
-### CHAPTER 5 스프링 시큐리티와 OAuth 2.0으로 로그인 기능 구현<br>
-스프링 시큐리티를 구현하는 이유<br>
+## CHAPTER 5 스프링 시큐리티와 OAuth 2.0으로 로그인 기능 구현<br>
+### 스프링 시큐리티를 구현하는 이유<br>
 스프링 애플리케이션에서의 보안을 위한 표준<br>
 막강한 인증(Authentication)과 인가(Authorization 혹은 권한 부여) 기능을 가진 프레임 워크<br>
 다양한 요구사항을 손쉽게 추가하고 변경할 수 있는 확장성을 가짐<br>
 
-소셜 로그인을 구현하는 이유?<br>
+### 소셜 로그인을 구현하는 이유?<br>
 직접 로그인 구현 시 배보다 배꼽이 커지는 경우가 많다<br>
 OAuth로 로그인 구현을 소셜에 맡기고 서비스 개발에 집중<br>
 
-spring-security-oauth2-autoconfigure 라이브러리<br>
+### spring-security-oauth2-autoconfigure 라이브러리<br>
 스프링 부트 1.5에서 쓰던 설정을 그대로 사용 가능<br>
 
-Spring Security Oauth2 Client 라이브러리 사용<br>
+### Spring Security Oauth2 Client 라이브러리 사용<br>
 - 스프링 팀에서 1.5에서 사용되던 spring-security-oauth 프로젝트는 유지 상태로 결정했으며 더는 신규 기능이 추가되지 않고 버그 수정 정도의 기능만 추가될 예정, 신규 기능은 새 oauth2 라이브러리에서만 지원하겠다고 선언
 - 스프링 부트용 라이브러리(starter) 출시
 - 기존에 사용되던 방식은 확장 포인트가 적절하게 오픈되어 있지 않아 직접 상속하거나 오버라이딩 해야 하고 신규 라이브러리의 경우 확장 포인트를 고려해서 설계된 상태
@@ -26,7 +26,7 @@ CommonOAuth2Provider라는 enum이 새롭게 추가되어 구글,깃허브,페�
 
 
 
-클라이언트 ID와 클라이언트 보안 비밀을 application.properties에 등록<br>
+### 클라이언트 ID와 클라이언트 보안 비밀을 application.properties에 등록<br>
 spring.security.oauth2.client.registration.google.client-id=클라이언트ID<br>
 spring.security.oauth2.client.registration.google.client-secret=클라이언트보안비밀<br>
 spring.security.oauth2.client.registration.google.scope=profile,email<br>
@@ -42,10 +42,10 @@ profile = xxx 라는 호출방식을 사용하면 해당 properties의 설정들
 spring.profiles.include=oauth<br>
 
 
-클라이언트ID와 보안 비밀의 보안을 위해 .gitignore에 등록
+### 클라이언트ID와 보안 비밀의 보안을 위해 .gitignore에 등록
 application-oauth.properties
 
-추가했는데도 커밋 목록에 나올 시
+### .gitignore에 추가했는데도 커밋 목록에 나올 시
 .gitignore가 제대로 작동되지 않아서 ignore처리된 파일이 자꾸 changes에 나올때가 있다.<br>
 git의 캐시가 문제가 되는거라 아래 명령어로 캐시 내용을 전부 삭제후 다시 add All해서 커밋하면 된다.<br>
 git rm -r --cached .<br>
