@@ -83,6 +83,30 @@ index.mustache에서 userName을 사용할 수 있게 IndexController에서 user
 h2-console에서 사용자의 role을 USER로 변경하는 쿼리 작성<br>
 update user set role = 'USER';<br>
 
+### 어노테이션 기반으로 개선
+같은 코드가 반복되는 경우는 수정이 필요한 경우 일일이 찾아가서 수정해야하므로 어노테이션을 이용하여 개선<br>
+- config.auth패키지에 @LoginUser 어노테이션 생성
+- LoginUserArgumentResolver 생성 (조건에 맞는 경우의 메소드가 있으면 HandlerMethodArgumentResolver의 구현체가 지정한 값으로 해당 메소드의 파라미터를 넘김)
+- config 패키지에 WebConfig 클래스 작성 (LoginUserArgumentResolver가 스프링에서 인식될 수 있도록 WebMvcConfigurer에 추가)
+- IndexController 클래스에서 반복되는 부분들을 @LoginUser로 개선
+
+### 세션 저장소로 데이터베이스 사용하기
+세션이 내장 톰캣의 메모리에 저장되기 때문이다.<br>
+기본적으로 WAS(Web Application Server)의 메모리에 저장되고 호출된다. 하여, 내장 톰캣처럼 애플리케이션 실행 시 실행되는 구조에서는 항상 초기화됌<br>
+2대 이상 서버에서 서비스하고 있다면 톰캣마다 세션 동기화 설정을 해야 함<br>
+실제 현업에서의 세션 저장소 (3중 택 1)<br>
+- 톰캣 세션을 사용
+- MySQL과 같은 데이터베이스를 세션 저장소로 사용
+- Redis, Memcached와 같은 메모리 DB를 세션 저장소로 사용
+
+책에서는 두 번째 방식인 데이터베이스를 세션 저장소로 사용 (설정이 간단하고 사용자가 많은 서비스가 아니며 비용 절감을 위해서)<br>
+build.gradle에 spring-session-jdbc 의존성 추가 <br>
+compile('org.springframework.session:spring-session-jdbc')<br>
+
+application.properties에 세션 저장소를 jdbc로 선택하도록 코드 추가<br>
+spring.session.store-type=jdbc<br>
+
+h2-console로 접속하면 SPRING_SESSION, SPRING_SESSION_ATTRIBUTES가 생성됨 (JPA로 인해 세션 테이블이 자동 생성)<br>
 
 
 
