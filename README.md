@@ -52,3 +52,8 @@ git rm -r --cached .<br>
 git add .<br>
 git commit -m "fixed untracked files"<br>
 
+### 구글 로그인 연동하기
+domain 아래 user 패키지 생성<br>
+- 사용자 정보를 담당할 도메인 User class
+- 사용자의 권한을 담당할 Enum 클래스 Role(스프링 시큐리티에서는 권한 코드에 항상 ROLE_이 앞에 있어야 함, EX)ROLE_GUEST, ROLE_USER)
+- User의 CRUD를 담당할 interface UserRepository 
