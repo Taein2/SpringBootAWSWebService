@@ -109,4 +109,3 @@ spring.session.store-type=jdbc<br>
 h2-console로 접속하면 SPRING_SESSION, SPRING_SESSION_ATTRIBUTES가 생성됨 (JPA로 인해 세션 테이블이 자동 생성)<br>
 
 
-
