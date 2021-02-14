@@ -35,6 +35,8 @@ spring.security.oauth2.client.registration.google.scope=profile,email<br>
 - 강제로 profile, email을 등록한 이유는 openid라는 scope가 있으면 Open Id Provider로 인식
 - OpenId Provider인 서비스(구글)와 그렇지 않은 서비스(네이버/카카오 등)로 나눠서 각각 OAuth2Service를 만들어야 함
 - 하나의 OAuth2Service로 사용하기 위해 일부로 openid scope를 빼고 등록
+
+
 profile = xxx 라는 호출방식을 사용하면 해당 properties의 설정들을 가져올 수 있음<br>
 이 책에서는 application.properties에서 application-oauth.properties를 포함하도록 구성<br>
 spring.profiles.include=oauth<br>
